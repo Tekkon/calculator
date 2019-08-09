@@ -30,5 +30,7 @@ loop do
     calculator.multiply(n1, n2)
   when '4'
     calculator.divide(n1, n2)
+  else
+    'You should choose an operation from the list above!'
   end.to_s
 end
