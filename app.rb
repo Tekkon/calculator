@@ -7,39 +7,39 @@ class App
 
   def run
     loop do
-      choose_operation(create_calculator)
+      n1, n2 = get_numbers
+      get_operation_result(create_calculator(n1.to_i, n2.to_i), choose_operation)
     end
   end
 
   private
 
-  def get_chomp
-    input = gets.chomp
-    *params = input.split /\s/
+  def get_input
+    gets.chomp.split /\s/
   end
 
-  def create_calculator
+  def get_numbers
     puts "Please, put two numbers separated by space:"
+    get_input
+  end
 
-    params = get_chomp
-
-    n1 = params[0].to_i
-    n2 = params[1].to_i
-
+  def create_calculator(n1, n2)
     Calculator.new(n1, n2)
   end
 
-  def choose_operation(calculator)
+  def choose_operation
     puts 'Please, choose one of the operations:'
     puts '1. add'
     puts '2. substract'
     puts '3. multiply'
     puts '4. divide'
 
-    params = get_chomp
+    get_input[0]
+  end
 
+  def get_operation_result(calculator, operation)
     puts 'The result of the operation is: ' +
-             case params[0]
+             case operation
              when '1'
                calculator.add
              when '2'
