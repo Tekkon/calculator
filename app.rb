@@ -2,6 +2,10 @@ require_relative 'calculator'
 
 class App
   def self.run
+    App.new.run
+  end
+
+  def run
     loop do
       choose_operation(create_calculator)
     end
@@ -9,12 +13,12 @@ class App
 
   private
 
-  def self.get_chomp
+  def get_chomp
     input = gets.chomp
     *params = input.split /\s/
   end
 
-  def self.create_calculator
+  def create_calculator
     puts "Please, put two numbers separated by space:"
 
     params = get_chomp
@@ -25,7 +29,7 @@ class App
     Calculator.new(n1, n2)
   end
 
-  def self.choose_operation(calculator)
+  def choose_operation(calculator)
     puts 'Please, choose one of the operations:'
     puts '1. add'
     puts '2. substract'
