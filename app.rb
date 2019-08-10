@@ -1,7 +1,5 @@
 require_relative 'calculator'
 
-calculator = Calculator.new
-
 loop do
   puts "Please, put two numbers separated by space:"
 
@@ -10,6 +8,8 @@ loop do
 
   n1 = params[0].to_i
   n2 = params[1].to_i
+
+  calculator = Calculator.new(n1, n2)
 
   puts 'Please, choose one of the operations:'
   puts '1. add'
@@ -23,13 +23,13 @@ loop do
   puts 'The result of the operation is: ' +
   case command
   when '1'
-    calculator.add(n1, n2)
+    calculator.add
   when '2'
-    calculator.substract(n1, n2)
+    calculator.substract
   when '3'
-    calculator.multiply(n1, n2)
+    calculator.multiply
   when '4'
-    calculator.divide(n1, n2)
+    calculator.divide
   else
     'You should choose an operation from the list above!'
   end.to_s
