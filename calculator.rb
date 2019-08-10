@@ -27,3 +27,4 @@ class Calculator
     raise ArgumentError.new("Both arguments should be Integer!") if n1.class != Integer || n2.class != Integer
   end
 end
+
