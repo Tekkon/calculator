@@ -8,7 +8,7 @@ class App
   def run
     loop do
       n1, n2 = get_numbers
-      get_operation_result(create_calculator(n1.to_i, n2.to_i), choose_operation)
+      get_operation_result(Calculator.new(n1.to_i, n2.to_i), choose_operation)
     end
   end
 
@@ -21,10 +21,6 @@ class App
   def get_numbers
     puts "Please, put two numbers separated by space:"
     get_input
-  end
-
-  def create_calculator(n1, n2)
-    Calculator.new(n1, n2)
   end
 
   def choose_operation
