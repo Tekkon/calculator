@@ -1,8 +1,10 @@
 class Calculator
+  attr_reader :n1, :n2
+
   def initialize(n1, n2)
     @n1 = n1
     @n2 = n2
-    check_arguments(n1, n2)
+    raise_argument_error if !n1.is_a?(Integer) || !n2.is_a?(Integer)
   end
   
   def add
@@ -23,8 +25,7 @@ class Calculator
 
   private
 
-  def check_arguments(n1, n2)
-    raise ArgumentError.new("Both arguments should be Integer!") if n1.class != Integer || n2.class != Integer
+  def raise_argument_error
+    raise ArgumentError.new("Both arguments should be Integer!")
   end
 end
-
