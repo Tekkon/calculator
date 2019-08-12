@@ -11,6 +11,7 @@ class App
     loop do
       ask_two_numbers
       ask_operation
+      perform_operation
       print_result
     end
   end
@@ -32,18 +33,24 @@ class App
     @operation = get_input[0]
   end
 
+  def perform_operation
+    calculator = Calculator.new(@n1.to_i, @n2.to_i)
+    method = CALC_OPERATIONS[@operation]
+    return invalid_operation if method.nil?
+
+    @result = calculator.send(method).to_s
+  end
+
   def print_result
-    puts 'The result of the operation is: ' + get_operation_result(Calculator.new(@n1.to_i, @n2.to_i), @operation)
+    puts 'The result of the operation is: ' + @result unless @result.nil?
   end
 
   def get_input
     gets.chomp.split /\s/
   end
 
-  def get_operation_result(calculator, operation)
-     method = CALC_OPERATIONS[operation]
-     return 'You should choose an operation from the list above!' if method.nil?
-
-     calculator.send(method).to_s
+  def invalid_operation
+    @result = nil
+    puts 'You should choose an operation from the list above!'
   end
 end
