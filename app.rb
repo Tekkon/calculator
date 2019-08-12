@@ -9,9 +9,9 @@ class App
 
   def run
     loop do
-      n1, n2 = ask_two_numbers
-      operation = ask_operation
-      print_result(n1, n2, operation)
+      ask_two_numbers
+      ask_operation
+      print_result
     end
   end
 
@@ -19,7 +19,7 @@ class App
 
   def ask_two_numbers
     puts "Please, put two numbers separated by space:"
-    get_input
+    @n1, @n2 = get_input
   end
 
   def ask_operation
@@ -29,11 +29,11 @@ class App
       puts key + '. ' + value.to_s
     end
 
-    get_input[0]
+    @operation = get_input[0]
   end
 
-  def print_result(n1, n2, operation)
-    puts 'The result of the operation is: ' + get_operation_result(Calculator.new(n1.to_i, n2.to_i), operation)
+  def print_result
+    puts 'The result of the operation is: ' + get_operation_result(Calculator.new(@n1.to_i, @n2.to_i), @operation)
   end
 
   def get_input
