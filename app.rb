@@ -1,6 +1,9 @@
 require_relative 'calculator'
 
 class App
+  attr_accessor :n1, :n2, :operation, :result
+
+  AVAILABLE_OPERATIONS = %w(1 2 3 4)
   CALC_OPERATIONS = { '1' => :add, '2' => :subtract, '3' => :multiply, '4' => :divide }
 
   def self.run
@@ -19,38 +22,40 @@ class App
   private
 
   def ask_two_numbers
-    puts "Please, put two numbers separated by space:"
-    @n1, @n2 = get_input
+    loop do
+      puts "Please, put two Integer numbers separated by space:"
+      self.n1, self.n2 = gets.chomp.split(/\s/)
+
+      break if is_integer?(n1) && is_integer?(n2)
+    end
   end
 
   def ask_operation
-    puts 'Please, choose one of the operations:'
+    loop do
+      puts 'Please, choose one of the operations:'
 
-    CALC_OPERATIONS.each do |key, value|
-      puts key + '. ' + value.to_s
+      CALC_OPERATIONS.each do |key, value|
+        puts "#{key}. #{value.to_s}"
+      end
+
+      self.operation = gets.chomp
+
+      break if AVAILABLE_OPERATIONS.include?(operation)
     end
-
-    @operation = get_input[0]
   end
 
   def perform_operation
-    calculator = Calculator.new(@n1.to_i, @n2.to_i)
-    method = CALC_OPERATIONS[@operation]
-    return invalid_operation if method.nil?
+    calculator = Calculator.new(n1.to_i, n2.to_i)
+    method = CALC_OPERATIONS[operation]
 
-    @result = calculator.send(method).to_s
+    self.result = calculator.send(method).to_s
   end
 
   def print_result
-    puts 'The result of the operation is: ' + @result unless @result.nil?
+    puts "The result of the operation is: #{result}"
   end
 
-  def get_input
-    gets.chomp.split /\s/
-  end
-
-  def invalid_operation
-    @result = nil
-    puts 'You should choose an operation from the list above!'
+  def is_integer?(string)
+    true if Integer(string) rescue false
   end
 end
