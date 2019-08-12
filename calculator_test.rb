@@ -28,3 +28,4 @@ class CalculatorTest < Minitest::Test
     end
   end
 end
+

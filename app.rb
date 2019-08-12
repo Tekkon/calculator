@@ -17,8 +17,7 @@ class App
       puts '4. divide'
       operation = get_input[0]
 
-      puts 'The result of the operation is: ' +
-        get_operation_result(Calculator.new(n1.to_i, n2.to_i), operation)
+      puts 'The result of the operation is: ' + get_operation_result(Calculator.new(n1.to_i, n2.to_i), operation)
     end
   end
 
@@ -43,3 +42,4 @@ class App
      end.to_s
   end
 end
+
