@@ -1,45 +1,64 @@
 require_relative 'calculator'
+require_relative 'app_add_ons'
 
 class App
+  attr_accessor :n1, :n2, :operation, :result
+
+  CALC_OPERATIONS = { '1' => :add, '2' => :subtract, '3' => :multiply, '4' => :divide }
+
   def self.run
     App.new.run
   end
 
   def run
     loop do
-      puts "Please, put two numbers separated by space:"
-      n1, n2 = get_input
-
-      puts 'Please, choose one of the operations:'
-      puts '1. add'
-      puts '2. substract'
-      puts '3. multiply'
-      puts '4. divide'
-      operation = get_input[0]
-
-      puts 'The result of the operation is: ' + get_operation_result(Calculator.new(n1.to_i, n2.to_i), operation)
+      ask_two_numbers
+      ask_operation
+      perform_operation
+      print_result
     end
   end
 
   private
 
-  def get_input
-    gets.chomp.split /\s/
+  def ask_two_numbers
+    loop do
+      puts "Please, put two Integer numbers separated by space:"
+      value1, value2 = gets.chomp.split(/\s/)
+
+      if value1.is_integer? && value2.is_integer?
+        self.n1 = value1.to_i
+        self.n2 = value2.to_i
+        break
+      end
+    end
   end
 
-  def get_operation_result(calculator, operation)
-     case operation
-     when '1'
-       calculator.add
-     when '2'
-       calculator.substract
-     when '3'
-       calculator.multiply
-     when '4'
-       calculator.divide
-     else
-       'You should choose an operation from the list above!'
-     end.to_s
+  def ask_operation
+    loop do
+      print_operations_menu
+      self.operation = gets.chomp
+
+      break if CALC_OPERATIONS.keys.include?(operation)
+    end
+  end
+
+  def print_operations_menu
+    puts 'Please, choose one of the operations:'
+
+    CALC_OPERATIONS.each do |key, value|
+      puts "#{key}. #{value.to_s}"
+    end
+  end
+
+  def perform_operation
+    calculator = Calculator.new(n1, n2)
+    method = CALC_OPERATIONS[operation]
+
+    self.result = calculator.send(method)
+  end
+
+  def print_result
+    puts "The result of the operation is: #{result}"
   end
 end
-
