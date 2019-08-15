@@ -1,5 +1,5 @@
 require_relative 'calculator'
-require_relative 'string'
+require_relative 'app_add_ons'
 
 class App
   attr_accessor :n1, :n2, :operation, :result
